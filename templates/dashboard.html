@@ -185,28 +185,7 @@ document.getElementById('gaia-form').addEventListener('submit', async (e) => {
 });
 </script>
 
-    <script>
-        document.getElementById('gaia-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const question = document.getElementById('gaia-question').value;
-            const response = document.getElementById('gaia-response');
-            response.innerHTML = 'Thinking...';
-
-            try {
-                const result = await fetch('/ask_gaia', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `question=${encodeURIComponent(question)}`
-                });
-                const data = await result.json();
-                response.innerHTML = data.response.replace(/\n/g, '<br>');
-            } catch (error) {
-                response.innerHTML = `Error: ${error.message}`;
-            }
-        });
-    </script>
+    
 <style>
 body {
     background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),

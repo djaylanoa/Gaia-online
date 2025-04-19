@@ -347,6 +347,12 @@ def messages():
 
     return render_template('messages.html', inbox=inbox)
 
+@app.route('/ai')
+def ai():
+    if 'name' not in session:
+        return redirect(url_for('login'))
+    return render_template('ai.html')
+
 @app.route('/settings')
 def settings():
     if 'name' not in session:

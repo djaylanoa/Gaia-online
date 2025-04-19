@@ -1,0 +1,53 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div class="gaia-dashboard">
+    <div class="gaia-header">
+        <h1 class="gaia-title">GAIA</h1>
+        <h2 class="encryption-title">AI Assistant</h2>
+        <div class="clearance-badge">Clearance Level: {{ session.clearance }}</div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            <div class="header-content">
+                <span class="icon">⬡</span>
+                Ask GAIA
+            </div>
+        </div>
+        <div class="panel-content">
+            <form id="gaia-form" class="cyber-form">
+                <textarea id="gaia-question" class="cyber-input" placeholder="Ask GAIA a question..." rows="4"></textarea>
+                <button type="submit" class="cyber-button">Ask</button>
+            </form>
+            <div id="gaia-response" class="cyber-response"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('gaia-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const question = document.getElementById('gaia-question').value;
+    const response = document.getElementById('gaia-response');
+    response.innerHTML = 'Thinking...';
+
+    try {
+        const result = await fetch('/ask_gaia', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `question=${encodeURIComponent(question)}`
+        });
+        const data = await result.json();
+        if (data.error) {
+            response.innerHTML = `Error: ${data.error}`;
+        } else {
+            response.innerHTML = data.response ? data.response.replace(/\n/g, '<br>') : 'No response received';
+        }
+    } catch (error) {
+        response.innerHTML = `Error: ${error.message}`;
+    }
+});
+</script>
