@@ -269,7 +269,7 @@ def manage_users():
 import requests  # Add at the top if it's not already there
 
 # Set AI endpoint to local Ollama instance
-AI_API_URL = "https://ddc0-143-179-251-66.ngrok-free.app/api/generate"
+AI_API_URL = "https://82fc-143-179-251-66.ngrok-free.app/api/generate"
 
 @app.route('/ask_gaia', methods=['POST'])
 def ask_gaia():
