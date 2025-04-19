@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% block content %}
 <div class="gaia-dashboard">
@@ -24,30 +23,4 @@
         </div>
     </div>
 </div>
-
-<script>
-document.getElementById('gaia-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const question = document.getElementById('gaia-question').value;
-    const response = document.getElementById('gaia-response');
-    response.innerHTML = 'Thinking...';
-
-    try {
-        const result = await fetch('/ask_gaia', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `question=${encodeURIComponent(question)}`
-        });
-        const data = await result.json();
-        if (data.error) {
-            response.innerHTML = `Error: ${data.error}`;
-        } else {
-            response.innerHTML = data.response ? data.response.replace(/\n/g, '<br>') : 'No response received';
-        }
-    } catch (error) {
-        response.innerHTML = `Error: ${error.message}`;
-    }
-});
-</script>
+{% endblock %}
