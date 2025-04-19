@@ -14,6 +14,13 @@
                 top: 0;
                 z-index: 1000;
         }
+        .nav-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+        }
         .cyber-link {
                 color: #00f0ff;
                 text-decoration: none;
@@ -31,13 +38,15 @@
                 letter-spacing: 2px;
                 backdrop-filter: blur(5px);
         }
+        .cyber-link:hover {
+                background: rgba(0, 240, 255, 0.1);
+                border-color: #00f0ff;
+        }
     </style>
 </head>
 <body>
     <nav class="cyber-nav">
-        <div class="nav-container">
-            <a class="nav-brand" href="/">GAIA</a>
-            <div class="nav-links">
+        <div class="nav-links">
                 {% if session.get('name') %}
                     {% if session.get('clearance') in ['Alpha Prime', 'Omega'] %}
                         <a class="cyber-link" href="{{ url_for('dashboard') }}">
