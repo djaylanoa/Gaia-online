@@ -16,24 +16,135 @@
             </div>
         </div>
         <div class="panel-content">
-            <form id="gaia-form" class="cyber-form">
-                <div class="form-group">
-                    <label>Your Question</label>
-                    <textarea id="gaia-question" class="cyber-input" placeholder="Ask GAIA a question..." rows="4"></textarea>
-                </div>
-                <button type="submit" class="cyber-button">
-                    <span class="button-content">
-                        <span class="icon">⬡</span>
-                        Ask GAIA
-                    </span>
-                </button>
-            </form>
-            <div id="gaia-response" class="cyber-response"></div>
+            <div id="chat-container">
+                <div id="gaia-response" class="cyber-response"></div>
+                <form id="gaia-form" class="cyber-form">
+                    <div class="form-group">
+                        <textarea id="gaia-question" class="cyber-input" placeholder="Ask GAIA a question..." rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="cyber-button">
+                        <span class="button-content">
+                            <span class="icon">⬡</span>
+                            Ask GAIA
+                        </span>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
+.gaia-dashboard {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.gaia-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gaia-title {
+    font-size: 3em;
+    color: #00f0ff;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+    margin: 0;
+    letter-spacing: 5px;
+}
+
+.encryption-title {
+    color: #00f0ff;
+    font-size: 1.5em;
+    margin: 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.clearance-badge {
+    display: inline-block;
+    color: #00f0ff;
+    background: rgba(0, 240, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.panel {
+    background: rgba(0, 15, 20, 0.8);
+    border: 1px solid #00f0ff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+    backdrop-filter: blur(10px);
+    margin-bottom: 20px;
+}
+
+.panel-header {
+    background: rgba(0, 240, 255, 0.1);
+    padding: 20px;
+    border-bottom: 1px solid #00f0ff;
+    font-size: 1.3em;
+    letter-spacing: 2px;
+}
+
+.panel-content {
+    padding: 25px;
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.cyber-form {
+    margin-top: 20px;
+}
+
+.cyber-input {
+    width: 100%;
+    background: rgba(0, 15, 20, 0.8);
+    border: 1px solid #00f0ff;
+    color: #00f0ff;
+    padding: 12px;
+    border-radius: 4px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1em;
+    resize: vertical;
+}
+
+.cyber-input:focus {
+    outline: none;
+    border-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.cyber-button {
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid #00f0ff;
+    color: #00f0ff;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+    letter-spacing: 1px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.cyber-button:hover {
+    background: rgba(0, 240, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
+.button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 .cyber-response {
     margin-top: 20px;
     padding: 15px;
@@ -43,10 +154,7 @@
     border-radius: 4px;
     white-space: pre-wrap;
     min-height: 50px;
-}
-
-.cyber-form {
-    margin-bottom: 20px;
+    font-family: 'Space Mono', monospace;
 }
 </style>
 
@@ -54,35 +162,38 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('gaia-form');
     const responseDiv = document.getElementById('gaia-response');
-    
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const question = document.getElementById('gaia-question').value;
-        
-        if (!question.trim()) return;
-        
-        responseDiv.innerHTML = 'Thinking...';
-        
-        try {
-            const result = await fetch('/ask_gaia', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `question=${encodeURIComponent(question)}`
-            });
+    const questionInput = document.getElementById('gaia-question');
+
+    if (form && responseDiv && questionInput) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const question = questionInput.value;
             
-            const data = await result.json();
+            if (!question.trim()) return;
             
-            if (data.error) {
-                responseDiv.innerHTML = `Error: ${data.error}`;
-            } else {
-                responseDiv.innerHTML = data.response ? data.response.replace(/\n/g, '<br>') : 'No response received';
+            responseDiv.innerHTML = 'Thinking...';
+            
+            try {
+                const result = await fetch('/ask_gaia', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `question=${encodeURIComponent(question)}`
+                });
+                
+                const data = await result.json();
+                
+                if (data.error) {
+                    responseDiv.innerHTML = `Error: ${data.error}`;
+                } else {
+                    responseDiv.innerHTML = data.response ? data.response.replace(/\n/g, '<br>') : 'No response received';
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `Error: ${error.message}`;
             }
-        } catch (error) {
-            responseDiv.innerHTML = `Error: ${error.message}`;
-        }
-    });
+        });
+    }
 });
 </script>
 {% endblock %}
