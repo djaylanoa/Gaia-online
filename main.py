@@ -289,7 +289,7 @@ def ask_gaia():
         
         headers = {
             "ngrok-skip-browser-warning": "true",
-            "Authorization": "Bearer YOUR_NGROK_TOKEN"  # Replace with your ngrok auth token
+            "Authorization": "Bearer 2vtiX4BOyks7bIctvERzc9VlazU_21Seego9j6wUGhPdhwksV"  # Replace with your ngrok auth token
         }
 
         response = requests.post(f"{AI_API_URL}", json=payload, headers=headers, timeout=10)
