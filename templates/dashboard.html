@@ -91,34 +91,7 @@
     </div>
 </div>
 
-<div class="dashboard-tabs">
-    <button class="tab-button active" onclick="showTab('data')">Data</button>
-    <button class="tab-button" onclick="showTab('ai')">AI Assistant</button>
-</div>
 
-<div id="data-tab" class="tab-content active">
-    <div class="dashboard-grid">
-        <!-- Original upload and files panels here -->
-    </div>
-</div>
-
-<div id="ai-tab" class="tab-content">
-    <div class="panel">
-        <div class="panel-header">
-            <div class="header-content">
-                <span class="icon">⬡</span>
-                Ask GAIA
-            </div>
-        </div>
-        <div class="panel-content">
-            <form id="gaia-form" class="cyber-form">
-                <textarea id="gaia-question" class="cyber-input" placeholder="Ask GAIA a question..."></textarea>
-                <button type="submit" class="cyber-button">Ask</button>
-            </form>
-            <div id="gaia-response" class="cyber-response"></div>
-        </div>
-    </div>
-</div>
 
 <style>
 .dashboard-tabs {
@@ -209,19 +182,19 @@ body {
 }
 
 .gaia-title {
-    font-size: 4em;
+    font-size: 2.5em;
     color: #00f0ff;
     text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
     margin: 0;
-    letter-spacing: 10px;
+    letter-spacing: 8px;
 }
 
 .encryption-title {
     color: #00f0ff;
-    font-size: 2em;
-    margin: 10px 0;
+    font-size: 1.5em;
+    margin: 8px 0;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
 }
 
 .clearance-badge {
