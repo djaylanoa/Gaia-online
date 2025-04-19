@@ -38,13 +38,13 @@ def get_db():
 def init_db():
     conn = get_db()
     cursor = conn.cursor()
-    
+
     cursor.execute('''CREATE TABLE IF NOT EXISTS encryption_keys
         (clearance_level TEXT PRIMARY KEY, key TEXT)''')
-    
+
     cursor.execute('''CREATE TABLE IF NOT EXISTS users
         (name TEXT PRIMARY KEY, password TEXT, clearance_level TEXT)''')
-    
+
     cursor.execute('''CREATE TABLE IF NOT EXISTS files
         (id INTEGER PRIMARY KEY AUTOINCREMENT,
         filename TEXT,
@@ -60,7 +60,7 @@ def init_db():
         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
         clearance_level TEXT
     )''')
-    
+
     conn.commit()
     conn.close()
 
@@ -269,13 +269,13 @@ def manage_users():
 import requests  # Add at the top if it's not already there
 
 # Set AI endpoint to local Ollama instance
-AI_API_URL = "http://localhost:11434"
+AI_API_URL = "http://localhost:11434/api/generate"
 
 @app.route('/ask_gaia', methods=['POST'])
 def ask_gaia():
     if 'name' not in session:
         return redirect(url_for('login'))
-    
+
     question = request.form.get('question')
     if not question:
         return jsonify({"error": "Please provide a question"}), 400
@@ -287,10 +287,10 @@ def ask_gaia():
             "stream": False
         }
 
-        response = requests.post(f"{AI_API_URL}/api/generate", json=payload, timeout=10)
+        response = requests.post(f"{AI_API_URL}", json=payload, timeout=10)
         if response.status_code != 200:
             return jsonify({"error": "AI service unavailable"}), 503
-            
+
         result = response.json()
         answer = result.get("response", "[No response received]")
 
@@ -311,7 +311,7 @@ def ask_gaia():
         return jsonify({"error": "Cannot connect to AI service"}), 503
     except Exception as e:
         return jsonify({"error": "Internal server error"}), 500
-      
+
 @app.route('/send_message', methods=['POST'])
 def send_message():
     if 'name' not in session:
@@ -363,7 +363,7 @@ def settings():
 def update_settings():
     if 'name' not in session:
         return redirect(url_for('login'))
-    
+
     theme = request.form.get('theme', 'gaia')
     session['theme'] = theme
     flash('Settings updated successfully.', 'success')
