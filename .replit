@@ -6,4 +6,20 @@ channel = "stable-24_05"
 packages = ["cargo", "libiconv", "libxcrypt", "openssl", "pkg-config", "rustc"]
 
 [deployment]
-run = ["sh", "-c", "npm run start"]
+run = ["sh", "-c", "python main.py"]
+
+[workflows]
+runButton = "Run"
+
+[[workflows.workflow]]
+name = "Run"
+author = 41694824
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python main.py"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
