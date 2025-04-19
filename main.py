@@ -286,8 +286,13 @@ def ask_gaia():
             "prompt": question,
             "stream": False
         }
+        
+        headers = {
+            "ngrok-skip-browser-warning": "true",
+            "Authorization": "Bearer YOUR_NGROK_TOKEN"  # Replace with your ngrok auth token
+        }
 
-        response = requests.post(f"{AI_API_URL}", json=payload, timeout=10)
+        response = requests.post(f"{AI_API_URL}", json=payload, headers=headers, timeout=10)
         if response.status_code != 200:
             return jsonify({"error": "AI service unavailable"}), 503
 
