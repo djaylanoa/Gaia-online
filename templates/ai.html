@@ -184,7 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const responseDiv = document.getElementById('gaia-response');
     const questionInput = document.getElementById('gaia-question');
 
-    form.addEventListener('submit', async function(e) {
+    if (form) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             const question = questionInput.value;
             
