@@ -1,0 +1,9 @@
+modules = ["web", "python-3.11", "nix", "bash"]
+run = "npm run start"
+
+[nix]
+channel = "stable-24_05"
+packages = ["cargo", "libiconv", "libxcrypt", "openssl", "pkg-config", "rustc"]
+
+[deployment]
+run = ["sh", "-c", "npm run start"]
