@@ -283,16 +283,17 @@ def ask_gaia():
     try:
         payload = {
             "model": "mistral",
-            "prompt": question,
-            "stream": False
+            "messages": [
+                {"role": "user", "content": question}
+            ]
         }
 
-        response = requests.post(f"{AI_API_URL}/api/v1/chat/completions", json=payload, timeout=10)
+        response = requests.post(f"{AI_API_URL}/api/chat/completions", json=payload, timeout=10)
         if response.status_code != 200:
             return jsonify({"error": "AI service unavailable"}), 503
 
         result = response.json()
-        answer = result.get("choices", [{}])[0].get("message", {}).get("content", "[No response received]")
+        answer = result.get("response", "[No response received]")
 
         conn = get_db()
         cursor = conn.cursor()
