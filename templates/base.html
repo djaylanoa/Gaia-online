@@ -1,8 +1,37 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>GAIA</title>
+    <style>
+        .cyber-nav {
+                background: rgba(0, 15, 20, 0.95);
+                border-bottom: 2px solid #00f0ff;
+                padding: 15px 0;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 2px 20px rgba(0, 240, 255, 0.15);
+                position: fixed;
+                width: 100%;
+                top: 0;
+                z-index: 1000;
+        }
+        .cyber-link {
+                color: #00f0ff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 20px;
+                background: rgba(0, 240, 255, 0.05);
+                border: 1px solid rgba(0, 240, 255, 0.1);
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                font-family: 'Space Mono', monospace;
+                text-transform: uppercase;
+                font-size: 0.85em;
+                letter-spacing: 2px;
+                backdrop-filter: blur(5px);
+        }
+    </style>
 </head>
 <body>
     <nav class="cyber-nav">
