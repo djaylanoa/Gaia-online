@@ -278,22 +278,22 @@ def ask_gaia():
     
     question = request.form.get('question')
     if not question:
-        flash('Please provide a question', 'danger')
-        return redirect(url_for('dashboard'))
+        return jsonify({"error": "Please provide a question"}), 400
 
     try:
-        # Send the question to your local Mistral model via Ollama/ngrok
         payload = {
             "model": "mistral",
             "prompt": question,
             "stream": False
         }
 
-        response = requests.post(f"{AI_API_URL}/api/generate", json=payload)
+        response = requests.post(f"{AI_API_URL}/api/generate", json=payload, timeout=10)
+        if response.status_code != 200:
+            return jsonify({"error": "AI service unavailable"}), 503
+            
         result = response.json()
         answer = result.get("response", "[No response received]")
 
-        # Save answer to database
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute(
@@ -303,12 +303,14 @@ def ask_gaia():
         conn.commit()
         conn.close()
 
-        flash('GAIA has responded to your question', 'success')
         return jsonify({"response": answer})
 
+    except requests.exceptions.Timeout:
+        return jsonify({"error": "AI service timeout"}), 504
+    except requests.exceptions.RequestException:
+        return jsonify({"error": "Cannot connect to AI service"}), 503
     except Exception as e:
-        flash(f'Error connecting to local AI: {str(e)}', 'danger')
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": "Internal server error"}), 500
       
 @app.route('/send_message', methods=['POST'])
 def send_message():
