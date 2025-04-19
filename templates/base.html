@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GAIA</title>
+</head>
+<body>
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <a class="nav-brand" href="/">GAIA</a>
+            <div class="nav-links">
+                {% if session.get('name') %}
+                    {% if session.get('clearance') in ['Alpha Prime', 'Omega'] %}
+                        <a class="cyber-link" href="{{ url_for('dashboard') }}">
+                            <span class="icon">⬡</span> Data
+                        </a>
+                        <a class="cyber-link" href="{{ url_for('manage_users') }}">
+                            <span class="icon">⬡</span> Users
+                        </a>
+                        <a class="cyber-link" href="{{ url_for('settings') }}">
+                            <span class="icon">⬡</span> Settings
+                        </a>
+                    {% endif %}
+                    <a class="cyber-link" href="{{ url_for('messages') }}">
+                        <span class="icon">⬡</span> Messages
+                    </a>
+                    <a class="cyber-link" href="{{ url_for('logout') }}">
+                        <span class="icon">⬡</span> Logout
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    {% block content %}{% endblock %}
+</body>
+</html>
