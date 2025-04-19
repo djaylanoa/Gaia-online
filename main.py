@@ -269,7 +269,7 @@ def manage_users():
 import requests  # Add at the top if it's not already there
 
 # Set AI endpoint to local Ollama instance
-AI_API_URL = "https://82fc-143-179-251-66.ngrok-free.app/api/generate"
+AI_API_URL = "https://82fc-143-179-251-66.ngrok-free.app"
 
 @app.route('/ask_gaia', methods=['POST'])
 def ask_gaia():
@@ -283,16 +283,10 @@ def ask_gaia():
     try:
         payload = {
             "model": "mistral",
-            "prompt": question,
-            "stream": False
-        }
-        
-        headers = {
-            "ngrok-skip-browser-warning": "true",
-            "Authorization": "Bearer 2vtiX4BOyks7bIctvERzc9VlazU_21Seego9j6wUGhPdhwksV"  # Replace with your ngrok auth token
+            "prompt": question
         }
 
-        response = requests.post(f"{AI_API_URL}", json=payload, headers=headers, timeout=10)
+        response = requests.post(f"{AI_API_URL}/api/generate", json=payload, timeout=10)
         if response.status_code != 200:
             return jsonify({"error": "AI service unavailable"}), 503
 
