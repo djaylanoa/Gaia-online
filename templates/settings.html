@@ -20,7 +20,7 @@
                     <label>Interface Theme</label>
                     <select class="cyber-select" name="theme">
                         <option value="gaia" {% if session.get('theme', 'gaia') == 'gaia' %}selected{% endif %}>GAIA Theme</option>
-                        <option value="minimal" {% if session.get('theme', 'gaia') == 'minimal' %}selected{% endif %}>Minimal Theme</option>
+                        <option value="monochrome" {% if session.get('theme', 'gaia') == 'monochrome' %}selected{% endif %}>Monochrome Theme</option>
                     </select>
                 </div>
                 <button type="submit" class="cyber-button">
@@ -35,61 +35,88 @@
 </div>
 
 <style>
-{% if session.get('theme') == 'minimal' %}
+{% if session.get('theme') == 'monochrome' %}
 body {
-    background: #f5f7f9;
-    color: #2a2f35;
-    font-family: 'Work Sans', sans-serif;
+    background: #000;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
 }
 
 .gaia-title {
-    font-size: 2.5em;
-    color: #2a2f35;
+    font-size: 1.8em;
+    color: #fff;
     text-shadow: none;
     margin: 0;
-    font-weight: 600;
+    font-weight: 500;
+    padding: 10px 0;
 }
 
 .clearance-badge {
-    color: #2a2f35;
-    background: #e1e5ea;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-size: 0.9em;
+    color: #fff;
+    background: #222;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 0.85em;
 }
 
 .panel {
-    background: white;
-    border: 1px solid #e1e5ea;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    margin: 10px 0;
 }
 
 .panel-header {
-    background: #f5f7f9;
-    border-bottom: 1px solid #e1e5ea;
-    color: #2a2f35;
-    padding: 20px;
+    background: #222;
+    border-bottom: 1px solid #333;
+    color: #fff;
+    padding: 15px;
 }
 
 .cyber-select, .cyber-button {
-    background: white;
-    border: 1px solid #e1e5ea;
-    color: #2a2f35;
+    background: #222;
+    border: 1px solid #444;
+    color: #fff;
     transition: all 0.2s ease;
+    padding: 10px 15px;
+    font-size: 0.9em;
+    border-radius: 3px;
 }
 
 .cyber-select:hover, .cyber-button:hover {
-    border-color: #2a2f35;
-    background: #f5f7f9;
+    background: #333;
+    border-color: #555;
 }
 
 .cyber-button:active {
-    background: #e1e5ea;
+    background: #444;
 }
 
 .icon {
-    color: #2a2f35;
+    color: #fff;
+}
+
+@media (max-width: 480px) {
+    .gaia-dashboard {
+        padding: 10px;
+    }
+    
+    .gaia-title {
+        font-size: 1.5em;
+    }
+    
+    .panel {
+        margin: 5px 0;
+    }
+    
+    .panel-content {
+        padding: 15px;
+    }
+    
+    .cyber-select, .cyber-button {
+        width: 100%;
+        margin: 5px 0;
+    }
 }
 
 {% else %}
