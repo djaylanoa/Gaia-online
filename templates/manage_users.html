@@ -76,6 +76,15 @@ body {
     min-height: 100vh;
 }
 
+/* Theme name display controls */
+.theme-name-gaia { display: inline; }
+.theme-name-simple { display: none; }
+
+{% if session.get('theme') == 'blackwhite' %}
+.theme-name-gaia { display: none; }
+.theme-name-simple { display: inline; }
+{% endif %}
+
 .gaia-dashboard {
     padding: 20px;
     max-width: 1400px;
