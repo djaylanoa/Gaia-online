@@ -5,8 +5,8 @@
     <style>
         {% if session.get('theme') == 'blackwhite' %}
         body {
-            background: #ffffff !important;
-            color: #000000 !important;
+            background: #000000 !important;
+            color: #ffffff !important;
             font-family: 'Arial', sans-serif !important;
         }
         .cyber-nav {
@@ -21,10 +21,42 @@
         }
         .cyber-link:hover {
             background: #333 !important;
-            border-color: #555 !important;
         }
         .icon {
+            display: none !important;
+        }
+        .panel {
+            background: #111 !important;
+            border: 1px solid #333 !important;
+            box-shadow: none !important;
+        }
+        .panel-header {
+            background: #222 !important;
+            border-bottom: 1px solid #333 !important;
+        }
+        .cyber-button {
+            background: #222 !important;
+            border: 1px solid #444 !important;
             color: #fff !important;
+        }
+        .cyber-button:hover {
+            background: #333 !important;
+        }
+        .cyber-input, .cyber-select {
+            background: #222 !important;
+            border: 1px solid #444 !important;
+            color: #fff !important;
+        }
+        .file-item {
+            border-bottom: 1px solid #333 !important;
+        }
+        .gaia-title, .encryption-title {
+            color: #fff !important;
+            text-shadow: none !important;
+        }
+        .clearance-badge {
+            background: #222 !important;
+            border: 1px solid #444 !important;
         }
         {% endif %}
         .cyber-nav {
