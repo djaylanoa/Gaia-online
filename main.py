@@ -4,6 +4,7 @@ from cryptography.fernet import Fernet
 import os
 import time
 from werkzeug.utils import secure_filename
+import requests
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'  # Change this in production
@@ -265,8 +266,6 @@ def manage_users():
     conn.close()
 
     return render_template('manage_users.html', users=users, access_levels=ACCESS_LEVELS.keys())
-
-import requests  # Add at the top if it's not already there
 
 # Set AI endpoint to local Ollama instance
 AI_API_URL = "https://82fc-143-179-251-66.ngrok-free.app"
