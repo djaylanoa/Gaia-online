@@ -19,8 +19,14 @@
                 <div class="form-group">
                     <label>Theme Selection</label>
                     <select class="cyber-select" id="theme-type" name="theme">
-                        <option value="gaia" {% if session.get('theme', 'gaia') == 'gaia' %}selected{% endif %}>GAIA Cyberpunk Theme</option>
-                        <option value="blackwhite" {% if session.get('theme', 'gaia') == 'blackwhite' %}selected{% endif %}>Minimal Black & White</option>
+                        <option value="gaia" {% if session.get('theme', 'gaia') == 'gaia' %}selected{% endif %}>
+                            <span class="theme-name-gaia">GAIA Cyberpunk Theme</span>
+                            <span class="theme-name-simple">Gaia</span>
+                        </option>
+                        <option value="blackwhite" {% if session.get('theme', 'gaia') == 'blackwhite' %}selected{% endif %}>
+                            <span class="theme-name-gaia">Minimal Black & White</span>
+                            <span class="theme-name-simple">Simple</span>
+                        </option>
                     </select>
                 </div>
                 <button type="submit" class="cyber-button">
@@ -41,6 +47,15 @@ body {
     color: #fff;
     font-family: 'Arial', sans-serif;
 }
+
+/* Override the theme name display for black & white theme */
+.theme-name-gaia { display: none; }
+.theme-name-simple { display: inline; }
+{% else %}
+/* Override the theme name display for GAIA theme */
+.theme-name-gaia { display: inline; }
+.theme-name-simple { display: none; }
+{% endif %}
 
 .gaia-title {
     font-size: 1.8em;
