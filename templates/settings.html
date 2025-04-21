@@ -20,7 +20,7 @@
                     <label>Interface Theme</label>
                     <select class="cyber-select" name="theme">
                         <option value="gaia" {% if session.get('theme', 'gaia') == 'gaia' %}selected{% endif %}>GAIA Theme</option>
-                        <option value="monochrome" {% if session.get('theme', 'gaia') == 'monochrome' %}selected{% endif %}>Monochrome Theme</option>
+                        <option value="blackwhite" {% if session.get('theme', 'gaia') == 'blackwhite' %}selected{% endif %}>Black & White Theme</option>
                     </select>
                 </div>
                 <button type="submit" class="cyber-button">
@@ -35,7 +35,7 @@
 </div>
 
 <style>
-{% if session.get('theme') == 'monochrome' %}
+{% if session.get('theme') == 'blackwhite' %}
 body {
     background: #000;
     color: #fff;

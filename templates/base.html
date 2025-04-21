@@ -3,6 +3,30 @@
 <head>
     <title>GAIA</title>
     <style>
+        {% if session.get('theme') == 'blackwhite' %}
+        body {
+            background: #000 !important;
+            color: #fff !important;
+            font-family: 'Arial', sans-serif !important;
+        }
+        .cyber-nav {
+            background: #111 !important;
+            border-bottom: 1px solid #333 !important;
+            box-shadow: none !important;
+        }
+        .cyber-link {
+            color: #fff !important;
+            background: #222 !important;
+            border: 1px solid #444 !important;
+        }
+        .cyber-link:hover {
+            background: #333 !important;
+            border-color: #555 !important;
+        }
+        .icon {
+            color: #fff !important;
+        }
+        {% endif %}
         .cyber-nav {
                 background: rgba(0, 15, 20, 0.95);
                 border-bottom: 1px solid #00f0ff;
